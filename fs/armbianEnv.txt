@@ -1,0 +1,13 @@
+verbosity=1
+bootlogo=false
+console=both
+disp_mode=1920x1080p60
+overlay_prefix=sun8i-h3
+rootdev=UUID=ee85e24e-076a-43c2-9b43-9e622312d82f
+rootfstype=ext4
+overlays=i2c0 spi-spidev
+param_spidev_spi_bus=0
+param_spidev_spi_cs=0
+param_spidev_max_freq=100000000
+usbstoragequirks=0x2537:0x1066:u,0x2537:0x1068:u
+
