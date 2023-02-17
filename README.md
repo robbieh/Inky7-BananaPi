@@ -6,7 +6,9 @@ This is what I did to get the Inky Impression 5.7" screen working with a Banana 
 References
 ==========
 https://pinout.xyz/pinout/inky\_impression#
+
 https://github.com/pimoroni/inky
+
 https://github.com/pimoroni/inky/issues/113
 
 Makefile guide
