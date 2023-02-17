@@ -45,4 +45,15 @@ pip3 install --break-system-packages inky[rpi,example-depends]
 Then edit `/root/.local/lib/python3.11/site-packages/inky/inky_uc8159.py` and comment out the `self._spi_bus.no_cs` line (line 229 in this case).
 
 
+Using the Inky Library
+======================
+I found the wrong i2c bus was being used. So it has to be specified when initializing the inky library.
 
+Here's how that looks:
+```
+display = auto(i2c_bus=SMBus(0))
+with Image.open("image.png") as im:
+	imresized = im.resize((display.width, display.height))
+	display.set_image(imresized)
+	display.show()
+```
