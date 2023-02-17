@@ -1,4 +1,8 @@
 
+What is this?
+=============
+This is what I did to get the Inky Impression 5.7" screen working with a Banana Pi M2 Zero board.
+
 References
 ==========
 https://pinout.xyz/pinout/inky\_impression#
