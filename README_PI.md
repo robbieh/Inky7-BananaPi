@@ -23,6 +23,21 @@ mkdir -p ~/.local/lib/python3.11/site-packages/
 cd Git
 git clone https://github.com/GrazerComputerClub/RPi.GPIO
 cp -r debian_buster debian_bookworm
+```
+
+Edit `debian_bookworm/control` and change the `Build-Depends` line for rpi.gpio:
+
+```
+Build-Depends: debhelper (>= 11~), dh-python, python3-all, python3-all-dev, python3-setuptools
+```
+
+Edit `debian_bookworm/changelog` and change the instance of `buster` to `bookworm`
+
+Edit `debian_bookworm/rules` and reomve `python2,` from the last line.
+
+Edit `make_deb` and change the one instance of python to python3. Then follow up with:
+
+```
 ./make_deb
 cp -r RPi ~/.local/lib/python3.11/site-packages/
 ```
@@ -39,6 +54,8 @@ OSError: [Errno 22] Invalid argument
 
 As root:
 ```
+apt install python3-numpy python3-spidev python3-bs4 python3-smbus2 python3-rpi.gpio python3-future python3-requests
+
 pip3 install --break-system-packages inky[rpi,example-depends]
 ```
 
