@@ -16,30 +16,50 @@ Reboot
 
 Fetch and install updated RPi.GPIO
 ==================================
+References:
+
+https://sourceforge.net/p/raspberry-gpio-python/tickets/198/
+
+
 As root:
 ```
 mkdir Git
 mkdir -p ~/.local/lib/python3.11/site-packages/
 cd Git
-git clone https://github.com/GrazerComputerClub/RPi.GPIO
-cp -r debian_buster debian_bookworm
+git clone https://github.com/BPI-SINOVOIP/RPi.GPIO
+cd RPi.GPIO
+touch CHANGELOG.txt
 ```
 
-Edit `debian_bookworm/control` and change the `Build-Depends` line for rpi.gpio:
+Edit setup.py and replace the `ext_modules` line with this one that includes `extra_compile_args`:
 
 ```
-Build-Depends: debhelper (>= 11~), dh-python, python3-all, python3-all-dev, python3-setuptools
+ext_modules      = [Extension('RPi._GPIO', ['source/py_gpio.c', 'source/c_gpio.c', 'source/cpuinfo.c', 'source/event_gpio.c', 'source/soft_pwm.c', 'source/py_pwm.c', 'source/common.c', 'source/constants.c', 'source/c_gpio_bpi.c'], extra_compile_args=["-fcommon"])])
 ```
 
-Edit `debian_bookworm/changelog` and change the instance of `buster` to `bookworm`
-
-Edit `debian_bookworm/rules` and reomve `python2,` from the last line.
-
-Edit `make_deb` and change the one instance of python to python3. Then follow up with:
+Also replace the `long_description`:
 
 ```
-./make_deb
-cp -r RPi ~/.local/lib/python3.11/site-packages/
+      long_description = open('README.txt').read(),
+```
+
+Then run:
+```
+python3 setup.py install
+```
+
+You'll need a `board.sh` file to make this module work with the Banana Pi.
+
+```
+mkdir /var/lib/bananapi
+```
+
+Then add these lines to it:
+```
+BOARD=bpi-m2z
+BOARD_AUTO=bpi-m2z
+BOARD_OLD=bpi-m64
+
 ```
 
 Fetch and fix Inky library
