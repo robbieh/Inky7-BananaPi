@@ -12,6 +12,13 @@ Run `sudo armbian-config` and navigate to System > Hardware. Enable `spi-spidev`
 
 Change hostname in `/etc/hostname` if preferred.
 
+Add lines below to `/boot/armbianEnv.txt` to show SPI
+
+```
+param_spidev_spi_bus=0
+param_spidev_max_freq=100000000
+```
+
 Reboot
 
 Fetch and install updated RPi.GPIO
@@ -88,6 +95,8 @@ I found the wrong i2c bus was being used. So it has to be specified when initial
 
 Here's how that looks:
 ```
+from smbus2 import SMBus
+
 display = auto(i2c_bus=SMBus(0))
 with Image.open("image.png") as im:
 	imresized = im.resize((display.width, display.height))
